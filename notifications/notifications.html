@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AssetCare - Notifications</title>
+    <link rel="stylesheet" href="notifications-style.css">
+    <link rel="stylesheet" href="../admin-menu.css">
+
+</head>
+
+<body>
+
+    <div class="real-app-layout">
+
+        <!-- SIDEBAR PANEL -->
+        <aside class="real-sidebar">
+            <div class="brand-block">
+                <div class="brand-logo-icon">AC</div>
+                <div class="brand-meta-info">
+                    <h3>AssetCare</h3>
+                    <span>Scan. Report. Maintain.</span>
+                </div>
+            </div>
+
+            <div class="sidebar-context-card">
+                <strong>SMIT Technology Campus</strong>
+                <p>Every asset deserves a complete digital maintenance history.</p>
+            </div>
+
+            <nav class="sidebar-navigation">
+                <a href="../index.html" class="nav-item"><span class="icon">📊</span> Dashboard</a>
+                <a href="../assets/assets.html" class="nav-item"><span class="icon">⚙️</span> Assets</a>
+                <a href="../issues/issues.html" class="nav-item"><span class="icon">🛠️</span> Issues</a>
+                <a href="../schedule/schedule.html" class="nav-item"><span class="icon">📅</span> Scheduled
+                    Maintenance</a>
+                <a href="../technicians/technicians.html" class="nav-item"><span class="icon">👥</span> Technicians</a>
+                <a href="../analytics/analytics.html" class="nav-item"><span class="icon">📈</span> Analytics</a>
+                <a href="notifications.html" class="nav-item active"><span class="icon">🔔</span> Notifications</a>
+                <a href="../settings/settings.html" class="nav-item"><span class="icon">⚙️</span> Settings</a>
+            </nav>
+
+            <div class="sidebar-footer-profile">
+                <div class="profile-avatar">MA</div>
+                <div class="profile-text">
+                    <h4>Muhammad Affan</h4>
+                    <span>Administrator</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN VIEWPORT -->
+        <main class="real-main-viewport">
+
+            <!-- Global Navbar -->
+            <header class="real-top-header">
+                <div class="header-search-bar-mock">
+                    <span>🔍</span>
+                    <input type="text" placeholder="Search notifications..." id="global-notify-search"
+                        oninput="liveSearchNotifications()">
+                </div>
+                <div class="header-right-meta">
+                    <div class="notification-bell-mock">🔔 <span class="badge-dot" id="nav-bell-dot"></span></div>
+                    <div class="org-badge-info">
+                        <strong>SMIT Technology Campus</strong>
+                        <span>Administrator view</span>
+                    </div>
+                    <div class="admin-menu-badge">Admin Menu</div>
+                </div>
+            </header>
+
+            <!-- Workspace Scroll Container -->
+            <section class="real-scroll-workspace">
+
+                <div class="workspace-intro-row">
+                    <div class="intro-title-meta">
+                        <span class="sub-lbl">ASSETCARE WORKSPACE</span>
+                        <h2>Notifications</h2>
+                        <p>Stay aware of new issues, critical assignments, overdue service, and status changes.</p>
+                    </div>
+                    <button class="btn-mark-all" onclick="markAllNotificationsAsRead()">Mark All as Read</button>
+                </div>
+
+                <!-- NOTIFICATIONS CARDS HOLDER -->
+                <div class="notifications-stack-container" id="dynamic-notifications-holder">
+                    <!-- Dynamic Notification Cards will load here directly from JS -->
+                </div>
+
+            </section>
+        </main>
+    </div>
+    <div class="admin-menu-badge">Admin Menu</div>
+
+    <script src="global-menu-engine.js"></script>
+    <script src="notifications-engine.js"></script>
+    <script src="../global-menu.js"></script>
+</body>
+
+</html>

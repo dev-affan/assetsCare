@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AssetCare - Maintenance Dashboard</title>
+    <link rel="stylesheet" href="dashboard-style.css">
+    <link rel="stylesheet" href="admin-menu.css">
+</head>
+
+<body>
+
+    <div class="dashboard-container">
+
+        <aside class="sidebar-panel">
+            <div class="brand-block">
+                <div class="logo-icon">AC</div>
+                <div class="brand-meta">
+                    <h3>AssetCare</h3>
+                    <span>Scan. Report. Maintain.</span>
+                </div>
+            </div>
+
+            <div class="workspace-context">
+                <strong>SMIT Technology Campus</strong>
+                <p>Every asset deserves a complete digital maintenance history.</p>
+            </div>
+
+            <nav class="nav-links-stack">
+                <a href="#" class="nav-item active"><span class="icon">📊</span> Dashboard</a>
+                <a href="./assets/assets.html" class="nav-item"><span class="icon">⚙️</span> Assets</a>
+                <a href="./issues/issues.html" class="nav-item"><span class="icon">🛠️</span> Issues</a>
+                <a href="./schedule/schedule.html" class="nav-item"><span class="icon">📅</span> Scheduled
+                    Maintenance</a>
+                <a href="./technicians/technicians.html" class="nav-item"><span class="icon">👥</span> Technicians</a>
+                <a href="./analytics/analytics.html" class="nav-item"><span class="icon">📈</span> Analytics</a>
+                <a href="./notifications/notifications.html" class="nav-item"><span class="icon">🔔</span>
+                    Notifications</a>
+                <a href="./settings/settings.html" class="nav-item"><span class="icon">⚙️</span> Settings</a>
+            </nav>
+
+            <div class="sidebar-user-footer">
+                <div class="user-avatar" id="user-avatar-initials">AA</div>
+                <div class="user-info-text">
+                    <h4 id="session-username">Loading...</h4>
+                    <span id="session-role">Administrator</span>
+                </div>
+                <button class="btn-logout" onclick="triggerSessionLogout()">➔</button>
+            </div>
+        </aside>
+
+        <main class="main-content-viewport">
+
+            <header class="top-header-bar">
+                <div class="search-bar-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" placeholder="Search assets, asset codes, issues, or issue number...">
+                </div>
+
+                <div class="header-actions">
+                    <div class="org-badge-view">
+                        <span class="bell-icon">🔔</span>
+                        <div class="text-meta">
+                            <strong>SMIT Technology Campus</strong>
+                            <span id="header-view-role">Administrator view</span>
+                        </div>
+                    </div>
+                    <div class="context-menu-badge" id="role-context-menu">Admin Menu</div>
+                </div>
+            </header>
+
+            <section class="workspace-scroller">
+
+                <!-- Inside index.html Main Viewport Section -->
+                <section class="real-scroll-workspace">
+
+                    <!-- ==================== ADMIN DASHBOARD VIEW ==================== -->
+                    <div id="admin-dashboard-view" class="role-view-block">
+                        <div class="workspace-intro-row">
+                            <div class="intro-title-meta">
+                                <span class="sub-lbl">ASSETCARE WORKSPACE</span>
+                                <h2>Maintenance Dashboard</h2>
+                                <p>Overview of campus asset conditions, pending operations, and breakdowns.</p>
+                            </div>
+                        </div>
+                        <!-- Aapka purana Admin stats grid aur charts yahan aayenge -->
+                    </div>
+
+                    <!-- ==================== TECHNICIAN DASHBOARD VIEW ==================== -->
+                    <div id="technician-dashboard-view" class="role-view-block">
+                        <div class="workspace-intro-row">
+                            <div class="intro-title-meta">
+                                <span class="sub-lbl">TECHNICIAN WORKSPACE</span>
+                                <h2>Technician Dashboard</h2>
+                                <p>Focus on your assigned work, due schedules, and active maintenance tasks.</p>
+                            </div>
+                        </div>
+
+                        <!-- TECHNICIAN STATS CARDS (As per screenshot 2) -->
+                        <div class="tech-stats-grid">
+                            <div class="tech-card">
+                                <span>Assigned issues</span>
+                                <h3>4</h3>
+                                <p>All issues currently visible to you</p>
+                            </div>
+                            <div class="tech-card priority-high">
+                                <span>High priority</span>
+                                <h3>0</h3>
+                                <p>High and critical work items</p>
+                            </div>
+                            <div class="tech-card due-today">
+                                <span>Due today</span>
+                                <h3>0</h3>
+                                <p>Scheduled maintenance that needs attention today</p>
+                            </div>
+                            <div class="tech-card progress-in">
+                                <span>In progress</span>
+                                <h3>0</h3>
+                                <p>Inspections, repairs, and parts waits underway</p>
+                            </div>
+                        </div>
+
+                        <!-- WORK QUEUE & PRIORITY MIX -->
+                        <div class="tech-workspace-split">
+                            <div class="work-queue-box">
+                                <h4>Work queue</h4>
+                                <!-- ISS-2026-0045 Card -->
+                                <div class="issue-item-card">
+                                    <div>
+                                        <strong>ISS-2026-0045 • Hot water tap leaking</strong>
+                                        <p>Water Dispenser 05 • Cafeteria</p>
+                                    </div>
+                                    <span class="badge-low">Low</span>
+                                </div>
+                                <!-- ISS-2026-0046 Card -->
+                                <div class="issue-item-card">
+                                    <div>
+                                        <strong>ISS-2026-0046 • Visitor check-in software freezing</strong>
+                                        <p>Reception Laptop 04 • Reception</p>
+                                    </div>
+                                    <span class="badge-medium">Medium</span>
+                                </div>
+                            </div>
+
+                            <div class="priority-chart-mock">
+                                <h4>Priority mix</h4>
+                                <!-- Aapka Assigned 4 wala Donut Chart graphic yahan aa jayega -->
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
+
+                <div class="stats-summary-grid">
+                    <div class="metric-card cyan-top">
+                        <span class="lbl">Total assets</span>
+                        <h1 id="count-total-assets">8</h1>
+                        <p class="muted">Registered assets across the campus</p>
+                    </div>
+                    <div class="metric-card green-top">
+                        <span class="lbl">Operational assets</span>
+                        <h1 id="count-operational-assets">4</h1>
+                        <p class="muted">Assets currently available for normal use</p>
+                    </div>
+                    <div class="metric-card orange-top">
+                        <span class="lbl">Assets under maintenance</span>
+                        <h1 id="count-maintenance-assets">2</h1>
+                        <p class="muted">Assets under inspection or repair</p>
+                    </div>
+                    <div class="metric-card red-top">
+                        <span class="lbl">Open Issues</span>
+                        <h1 id="count-open-issues">8</h1>
+                        <p class="muted">Reported, assigned, or in-progress issues</p>
+                    </div>
+                </div>
+
+                <div class="stats-summary-grid secondary-grid">
+                    <div class="metric-card alert-pink-top">
+                        <span class="lbl alert-lbl">Overdue maintenance</span>
+                        <h1 id="count-overdue-maintenance">1</h1>
+                        <p class="muted">Schedules that missed their target date</p>
+                    </div>
+                    <div class="metric-card success-green-top">
+                        <span class="lbl success-lbl">Resolved this month</span>
+                        <h1 id="count-resolved-month">0</h1>
+                        <p class="muted">Resolved or closed issues in the demo dataset</p>
+                    </div>
+                </div>
+
+                <div class="saas-analytics-framework">
+
+                    <div class="donut-charts-row-grid">
+
+                        <div class="dashboard-visual-card">
+                            <span class="context-lbl">ASSET HEALTH</span>
+                            <h3 class="visual-card-title">Status distribution</h3>
+
+                            <div class="visual-flex-engine">
+                                <div class="donut-render-block">
+                                    <div class="donut-svg-simulation asset-health-gradient"></div>
+                                    <div class="donut-inner-core">
+                                        <span class="core-subtext">Condition</span>
+                                        <h2 class="core-main-number">8</h2>
+                                    </div>
+                                </div>
+                                <ul class="legends-data-stack">
+                                    <li><span class="legend-indicator dot-good"></span> Good <span
+                                            class="legend-qty">4</span></li>
+                                    <li><span class="legend-indicator dot-fair"></span> Fair <span
+                                            class="legend-qty">2</span></li>
+                                    <li><span class="legend-indicator dot-poor"></span> Poor <span
+                                            class="legend-qty">1</span></li>
+                                    <li><span class="legend-indicator dot-excellent"></span> Excellent <span
+                                            class="legend-qty">1</span></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="dashboard-visual-card">
+                            <span class="context-lbl">ISSUE PRESSURE</span>
+                            <h3 class="visual-card-title">Priority distribution</h3>
+
+                            <div class="visual-flex-engine">
+                                <div class="donut-render-block">
+                                    <div class="donut-svg-simulation issue-pressure-gradient"></div>
+                                    <div class="donut-inner-core">
+                                        <span class="core-subtext">Priority</span>
+                                        <h2 class="core-main-number">12</h2>
+                                    </div>
+                                </div>
+                                <ul class="legends-data-stack">
+                                    <li><span class="legend-indicator dot-high"></span> High <span
+                                            class="legend-qty">3</span></li>
+                                    <li><span class="legend-indicator dot-critical"></span> Critical <span
+                                            class="legend-qty">2</span></li>
+                                    <li><span class="legend-indicator dot-medium"></span> Medium <span
+                                            class="legend-qty">4</span></li>
+                                    <li><span class="legend-indicator dot-low"></span> Low <span
+                                            class="legend-qty">3</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="operational-three-column-system">
+
+                        <div class="ops-column-box">
+                            <span class="context-lbl">LIVE QUEUE</span>
+                            <h3 class="ops-column-heading">Recently reported issues</h3>
+                            <div class="ops-list-scroller">
+                                <div class="ops-list-strip border-critical">
+                                    <div class="strip-left-meta">
+                                        <h4>Fuel level sensor fault</h4>
+                                        <p>ISS-2026-0048 • Backup Generator</p>
+                                    </div>
+                                    <div class="strip-right-status">
+                                        <span class="lbl-badge status-critical">Critical</span>
+                                        <span class="lbl-badge tag-assigned">Assigned</span>
+                                    </div>
+                                </div>
+                                <div class="ops-list-strip border-medium">
+                                    <div class="strip-left-meta">
+                                        <h4>Printer pulling multiple sheets</h4>
+                                        <p>ISS-2026-0043 • IT Lab Printer 02</p>
+                                    </div>
+                                    <div class="strip-right-status">
+                                        <span class="lbl-badge status-medium">Medium</span>
+                                        <span class="lbl-badge tag-reported">Reported</span>
+                                    </div>
+                                </div>
+                                <div class="ops-list-strip border-low">
+                                    <div class="strip-left-meta">
+                                        <h4>Inspection tag faded</h4>
+                                        <p>ISS-2026-0047 • Fire Extinguisher Block A</p>
+                                    </div>
+                                    <div class="strip-right-status">
+                                        <span class="lbl-badge status-low">Low</span>
+                                        <span class="lbl-badge tag-reported">Reported</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ops-column-box">
+                            <span class="context-lbl">PLANNING</span>
+                            <h3 class="ops-column-heading">Upcoming maintenance</h3>
+                            <div class="ops-list-scroller">
+                                <div class="ops-list-strip border-overdue">
+                                    <div class="strip-left-meta">
+                                        <h4>Backup Generator</h4>
+                                        <p>Emergency Repair • Bilal Khan</p>
+                                    </div>
+                                    <div class="strip-right-status text-right-align">
+                                        <span class="lbl-badge status-overdue-tag">Overdue</span>
+                                        <span class="date-stamp text-red">2026-07-09</span>
+                                    </div>
+                                </div>
+                                <div class="ops-list-strip border-upcoming">
+                                    <div class="strip-left-meta">
+                                        <h4>Fire Extinguisher Block A</h4>
+                                        <p>Quarterly Inspection • Ahmed Raza</p>
+                                    </div>
+                                    <div class="strip-right-status text-right-align">
+                                        <span class="lbl-badge status-upcoming-tag">Upcoming</span>
+                                        <span class="date-stamp">2026-07-12</span>
+                                    </div>
+                                </div>
+                                <div class="ops-list-strip border-upcoming">
+                                    <div class="strip-left-meta">
+                                        <h4>Main Office AC 03</h4>
+                                        <p>Monthly maintenance • Sara Ali</p>
+                                    </div>
+                                    <div class="strip-right-status text-right-align">
+                                        <span class="lbl-badge status-upcoming-tag">Upcoming</span>
+                                        <span class="date-stamp">2026-07-15</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ops-column-box">
+                            <span class="context-lbl">REPEAT WORK</span>
+                            <h3 class="ops-column-heading">Most frequently repaired assets</h3>
+                            <div class="pure-bar-chart-viewport">
+                                <div class="chart-bars-flexbox">
+                                    <div class="bar-pillar-group">
+                                        <span class="pillar-value-lbl">2</span>
+                                        <div class="pillar-graph-body height-high"></div>
+                                        <span class="pillar-title-lbl">Backup Generator</span>
+                                    </div>
+                                    <div class="bar-pillar-group">
+                                        <span class="pillar-value-lbl">2</span>
+                                        <div class="pillar-graph-body height-high"></div>
+                                        <span class="pillar-title-lbl">Water Dispenser</span>
+                                    </div>
+                                    <div class="bar-pillar-group">
+                                        <span class="pillar-value-lbl">2</span>
+                                        <div class="pillar-graph-body height-high"></div>
+                                        <span class="pillar-title-lbl">Reception Laptop</span>
+                                    </div>
+                                    <div class="bar-pillar-group">
+                                        <span class="pillar-value-lbl">1</span>
+                                        <div class="pillar-graph-body height-low"></div>
+                                        <span class="pillar-title-lbl">Main Office</span>
+                                    </div>
+                                    <div class="bar-pillar-group">
+                                        <span class="pillar-value-lbl">1</span>
+                                        <div class="pillar-graph-body height-low"></div>
+                                        <span class="pillar-title-lbl">IT Lab</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </section>
+        </main>
+    </div>
+    <div id="asset-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content-box">
+            <div class="modal-header">
+                <h3>Register New Campus Asset</h3>
+                <button class="close-modal-btn" onclick="toggleAssetModal(false)">✕</button>
+            </div>
+            <form id="asset-registration-form" onsubmit="handleAssetRegistration(event)">
+                <div class="form-input-group">
+                    <label>Asset Name</label>
+                    <input type="text" id="asset-name" placeholder="e.g., Water Dispenser Floor 2" required>
+                </div>
+                <div class="form-input-group">
+                    <label>Category</label>
+                    <select id="asset-category" required>
+                        <option value="Electronics">Electronics / IT Hardware</option>
+                        <option value="Appliances">Appliances (AC, Water Cooler)</option>
+                        <option value="Safety">Safety Equipment (Fire Extinguisher)</option>
+                        <option value="Machinery">Machinery / Power Generator</option>
+                    </select>
+                </div>
+                <div class="form-input-group">
+                    <label>Initial Operational Status</label>
+                    <select id="asset-status" required>
+                        <option value="Operational">Operational (Available for use)</option>
+                        <option value="Under Maintenance">Under Maintenance</option>
+                        <option value="Under Inspection">Under Inspection</option>
+                    </select>
+                </div>
+                <div class="modal-action-buttons">
+                    <button type="button" class="btn-secondary-cancel" onclick="toggleAssetModal(false)">Cancel</button>
+                    <button type="submit" class="btn-success-save">Save Asset to LocalStorage</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="admin-menu-badge">Admin Menu</div>
+
+    <script src="global-menu-engine.js"></script>
+
+    <script src="dashboard-engine.js"></script>
+    <script src="global-menu.js"></script>
+</body>
+
+</html>

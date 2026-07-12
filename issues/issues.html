@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AssetCare - Issues Management</title>
+    <link rel="stylesheet" href="issues-style.css">
+    <link rel="stylesheet" href="../admin-menu.css">
+</head>
+
+<body>
+
+    <div class="real-app-layout">
+
+        <aside class="real-sidebar">
+            <div class="brand-block">
+                <div class="brand-logo-icon">AC</div>
+                <div class="brand-meta-info">
+                    <h3>AssetCare</h3>
+                    <span>Scan. Report. Maintain.</span>
+                </div>
+            </div>
+
+            <div class="sidebar-context-card">
+                <strong>SMIT Technology Campus</strong>
+                <p>Every asset deserves a complete digital maintenance history.</p>
+            </div>
+
+            <nav class="sidebar-navigation">
+                <a href="../index.html" class="nav-item"><span class="icon">📊</span> Dashboard</a>
+                <a href="../assets/assets.html" class="nav-item"><span class="icon">⚙️</span> Assets</a>
+                <a href="issues.html" class="nav-item active"><span class="icon">🛠️</span> Issues</a>
+                <a href="../schedule/schedule.html" class="nav-item"><span class="icon">📅</span> Scheduled
+                    Maintenance</a>
+                <a href="../technicians/technicians.html" class="nav-item"><span class="icon">👥</span> Technicians</a>
+                <a href="../analytics/analytics.html" class="nav-item"><span class="icon">📈</span> Analytics</a>
+                <a href="../notifications/notifications.html" class="nav-item"><span class="icon">🔔</span>
+                    Notifications</a>
+                <a href="../settings/settings.html" class="nav-item"><span class="icon">⚙️</span> Settings</a>
+            </nav>
+
+            <div class="sidebar-footer-profile">
+                <div class="profile-avatar" id="user-avatar-initials">MA</div>
+                <div class="profile-text">
+                    <h4 id="session-username">Muhammad Affan</h4>
+                    <span id="session-role">Administrator</span>
+                </div>
+                <button class="logout-trigger-btn" onclick="triggerSessionLogout()">➔</button>
+            </div>
+        </aside>
+
+        <main class="real-main-viewport">
+
+            <header class="real-top-header">
+                <div class="header-search-bar-mock">
+                    <span>🔍</span>
+                    <input type="text" placeholder="Search assets, asset codes, issues..." disabled>
+                </div>
+                <div class="header-right-meta">
+                    <div class="notification-bell-mock">🔔</div>
+                    <div class="org-badge-info">
+                        <strong>SMIT Technology Campus</strong>
+                        <span>Administrator view</span>
+                    </div>
+                    <div class="admin-menu-badge">Admin Menu</div>
+                </div>
+            </header>
+
+            <section class="real-scroll-workspace">
+
+                <div class="workspace-intro-row">
+                    <div class="intro-title-meta">
+                        <span class="sub-lbl">ASSETCARE WORKSPACE</span>
+                        <h2>Issues Management</h2>
+                        <p>Track, prioritize, assign, and resolve reported asset issues across campus.</p>
+                    </div>
+                    <button class="btn-report-new-issue" id="btn-trigger-issue-modal">Report New Issue</button>
+                </div>
+
+                <div class="filter-console-card">
+                    <div class="filter-inputs-grid-row">
+                        <div class="filter-input-wrapper">
+                            <label>Search issues</label>
+                            <input type="text" id="issue-search-input" placeholder="Search by title, code or asset">
+                        </div>
+                        <div class="filter-input-wrapper">
+                            <label>Priority</label>
+                            <select id="filter-priority-select">
+                                <option value="ALL">All</option>
+                                <option value="High">High</option>
+                                <option value="Medium">Medium</option>
+                                <option value="Low">Low</option>
+                            </select>
+                        </div>
+                        <div class="filter-input-wrapper">
+                            <label>Status</label>
+                            <select id="filter-status-select">
+                                <option value="ALL">All</option>
+                                <option value="Open">Open</option>
+                                <option value="In Progress">In Progress</option>
+                                <option value="Resolved">Resolved</option>
+                            </select>
+                        </div>
+                        <div class="filter-input-wrapper">
+                            <label>Category</label>
+                            <select id="filter-category-select">
+                                <option value="ALL">All</option>
+                                <option value="Electrical">Electrical</option>
+                                <option value="Hardware">Hardware</option>
+                                <option value="Safety">Safety</option>
+                                <option value="Plumbing">Plumbing</option>
+                            </select>
+                        </div>
+                        <div class="filter-input-wrapper">
+                            <label>Sort</label>
+                            <select id="filter-sort-select">
+                                <option value="Newest">Newest</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="filter-actions-row">
+                        <button class="btn-apply-filters" onclick="applyLiveIssueFilters()">Apply filters</button>
+                        <button class="btn-clear-filters" onclick="clearIssueFiltersEngine()">Clear</button>
+                    </div>
+                </div>
+
+                <div class="issue-directory-card">
+                    <div class="directory-heading-block">
+                        <span class="dir-small-title">ISSUES DIRECTORY</span>
+                        <h3 id="directory-issues-counter">0 issues</h3>
+                    </div>
+
+                    <div class="directory-list-headers">
+                        <div class="col-issue-meta">ISSUE</div>
+                        <div class="col-asset-code">ASSET CODE</div>
+                        <div class="col-priority">PRIORITY</div>
+                        <div class="col-status">STATUS</div>
+                        <div class="col-reported-by">REPORTED BY</div>
+                        <div class="col-assigned-to">ASSIGNED TO</div>
+                        <div class="col-date">DATE</div>
+                        <div class="col-actions">ACTIONS</div>
+                    </div>
+
+                    <div class="directory-rows-stack" id="dynamic-issues-list-holder"></div>
+
+                    <div id="issues-empty-state" class="empty-directory-placeholder" style="display: none;">
+                        <p>No reported campus issues found matching your selection.</p>
+                    </div>
+                </div>
+
+            </section>
+        </main>
+    </div>
+
+    <div id="issue-modal" class="modal-backdrop" style="display: none;">
+        <div class="modal-window-box">
+            <div class="modal-header-section">
+                <h3>Report New Asset Issue</h3>
+                <button class="modal-close-x-btn" onclick="toggleIssueModal(false)">✕</button>
+            </div>
+            <form id="issue-submission-form" onsubmit="handleIssueRegistration(event)">
+                <div class="form-item-group">
+                    <label>Issue Title</label>
+                    <input type="text" id="issue-title" placeholder="e.g., Engine overheating, Screen broken" required>
+                </div>
+                <div class="form-item-group">
+                    <label>Related Asset Code</label>
+                    <input type="text" id="issue-asset-code" placeholder="e.g., AST-2026-001" required>
+                </div>
+                <div class="form-item-group">
+                    <label>Priority</label>
+                    <select id="issue-priority" required>
+                        <option value="High">High</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Low">Low</option>
+                    </select>
+                </div>
+                <div class="form-item-group">
+                    <label>Category</label>
+                    <select id="issue-category" required>
+                        <option value="Electrical">Electrical</option>
+                        <option value="Hardware">Hardware</option>
+                        <option value="Safety">Safety</option>
+                        <option value="Plumbing">Plumbing</option>
+                    </select>
+                </div>
+                <div class="form-item-group">
+                    <label>Assigned Technician</label>
+                    <input type="text" id="issue-assignee" placeholder="e.g., Bilal Raza, Unassigned">
+                </div>
+                <div class="modal-footer-buttons">
+                    <button type="button" class="btn-modal-cancel" onclick="toggleIssueModal(false)">Cancel</button>
+                    <button type="submit" class="btn-modal-save">Submit Issue</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="admin-menu-badge">Admin Menu</div>
+
+    <script src="global-menu-engine.js"></script>
+    <script src="issues-engine.js"></script>
+    <script src="../global-menu.js"></script>
+</body>
+
+</html>

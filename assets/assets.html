@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AssetCare - Asset Management</title>
+    <link rel="stylesheet" href="assets-style.css">
+    <link rel="stylesheet" href="../admin-menu.css">
+</head>
+
+<body>
+
+    <div class="real-app-layout">
+
+        <aside class="real-sidebar">
+            <div class="brand-block">
+                <div class="brand-logo-icon">AC</div>
+                <div class="brand-meta-info">
+                    <h3>AssetCare</h3>
+                    <span>Scan. Report. Maintain.</span>
+                </div>
+            </div>
+
+            <div class="sidebar-context-card">
+                <strong>SMIT Technology Campus</strong>
+                <p>Every asset deserves a complete digital maintenance history.</p>
+            </div>
+
+            <nav class="sidebar-navigation">
+                <a href="../index.html" class="nav-item"><span class="icon">📊</span> Dashboard</a>
+                <a href="assets.html" class="nav-item active"><span class="icon">⚙️</span> Assets</a>
+                <a href="../issues/issues.html" class="nav-item"><span class="icon">🛠️</span> Issues</a>
+                <a href="../schedule/schedule.html" class="nav-item"><span class="icon">📅</span> Scheduled
+                    Maintenance</a>
+                <a href="../technicians/technicians.html" class="nav-item"><span class="icon">👥</span> Technicians</a>
+                <a href="../analytics/analytics.html" class="nav-item"><span class="icon">📈</span> Analytics</a>
+                <a href="./notifications/notifications.html" class="nav-item"><span class="icon">🔔</span>
+                    Notifications</a>
+                <a href="../settings/settings.html" class="nav-item"><span class="icon">⚙️</span> Settings</a>
+            </nav>
+
+            <div class="sidebar-footer-profile">
+                <div class="profile-avatar" id="user-avatar-initials">MA</div>
+                <div class="profile-text">
+                    <h4 id="session-username">Muhammad Affan</h4>
+                    <span id="session-role">Administrator</span>
+                </div>
+                <button class="logout-trigger-btn" onclick="triggerSessionLogout()">➔</button>
+            </div>
+        </aside>
+
+        <main class="real-main-viewport">
+
+            <header class="real-top-header">
+                <div class="header-search-bar-mock">
+                    <span>🔍</span>
+                    <input type="text" placeholder="Search assets, asset codes, issues..." disabled>
+                </div>
+                <div class="header-right-meta">
+                    <div class="notification-bell-mock">🔔</div>
+                    <div class="org-badge-info">
+                        <strong>SMIT Technology Campus</strong>
+                        <span>Administrator view</span>
+                    </div>
+                    <div class="admin-menu-badge">Admin Menu</div>
+                </div>
+            </header>
+
+            <section class="real-scroll-workspace">
+
+                <div class="workspace-intro-row">
+                    <div class="intro-title-meta">
+                        <span class="sub-lbl">ASSETCARE WORKSPACE</span>
+                        <h2>Asset Management</h2>
+                        <p>Search, filter, review service posture, and open QR-enabled asset records.</p>
+                    </div>
+                    <button class="btn-register-new-asset" id="btn-register-asset">Register New Asset</button>
+                </div>
+
+                <div class="filter-console-card">
+                    <div class="filter-inputs-grid-row">
+                        <div class="filter-input-wrapper">
+                            <label>Search assets</label>
+                            <input type="text" id="asset-table-search" placeholder="Search by name, code, or location">
+                        </div>
+                        <div class="filter-input-wrapper">
+                            <label>Category</label>
+                            <select id="filter-category-select">
+                                <option value="ALL">All</option>
+                                <option value="Generator">Generator</option>
+                                <option value="Projector">Projector</option>
+                                <option value="Safety Equipment">Safety Equipment</option>
+                                <option value="Printer">Printer</option>
+                                <option value="Appliances">Appliances</option>
+                            </select>
+                        </div>
+                        <div class="filter-input-wrapper">
+                            <label>Status</label>
+                            <select id="filter-status-select">
+                                <option value="ALL">All</option>
+                                <option value="Operational">Operational</option>
+                                <option value="Under Maintenance">Under Maintenance</option>
+                                <option value="Under Inspection">Under Inspection</option>
+                                <option value="Out of Service">Out of Service</option>
+                            </select>
+                        </div>
+                        <div class="filter-input-wrapper">
+                            <label>Location</label>
+                            <select id="filter-location-select">
+                                <option value="ALL">All</option>
+                                <option value="Server Room">Server Room</option>
+                                <option value="Classroom Block A">Classroom Block A</option>
+                                <option value="IT Lab">IT Lab</option>
+                            </select>
+                        </div>
+                        <div class="filter-input-wrapper">
+                            <label>Sort</label>
+                            <select id="filter-sort-select">
+                                <option value="Name">Name</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="filter-actions-row">
+                        <button class="btn-apply-filters" onclick="applyLiveAssetFilters()">Apply filters</button>
+                        <button class="btn-clear-filters" onclick="clearAllFiltersEngine()">Clear</button>
+                    </div>
+                </div>
+
+                <div class="asset-directory-card">
+                    <div class="directory-heading-block">
+                        <span class="dir-small-title">ASSET DIRECTORY</span>
+                        <h3 id="directory-assets-counter">0 assets</h3>
+                    </div>
+
+                    <div class="directory-list-headers">
+                        <div class="col-asset-meta">ASSET</div>
+                        <div class="col-category">CATEGORY</div>
+                        <div class="col-location">LOCATION</div>
+                        <div class="col-condition">CONDITION</div>
+                        <div class="col-status">STATUS</div>
+                        <div class="col-service">LAST SERVICE</div>
+                        <div class="col-service">NEXT SERVICE</div>
+                        <div class="col-issues">OPEN ISSUES</div>
+                        <div class="col-actions">ACTIONS</div>
+                    </div>
+
+                    <div class="directory-rows-stack" id="dynamic-assets-list-holder">
+                    </div>
+
+                    <div id="table-empty-state" class="empty-directory-placeholder" style="display: none;">
+                        <p>No campus assets match your selected filter posture.</p>
+                    </div>
+                </div>
+
+            </section>
+        </main>
+    </div>
+
+    <div id="asset-modal" class="modal-backdrop" style="display: none;">
+        <div class="modal-window-box">
+            <div class="modal-header-section">
+                <h3>Register New Campus Asset</h3>
+                <button class="modal-close-x-btn" onclick="toggleAssetModal(false)">✕</button>
+            </div>
+            <form id="asset-registration-form" onsubmit="handleAssetRegistration(event)">
+                <div class="form-item-group">
+                    <label>Asset Name</label>
+                    <input type="text" id="asset-name" placeholder="e.g., Backup Generator" required>
+                </div>
+                <div class="form-item-group">
+                    <label>Category</label>
+                    <select id="asset-category" required>
+                        <option value="Generator">Generator</option>
+                        <option value="Projector">Projector</option>
+                        <option value="Safety Equipment">Safety Equipment</option>
+                        <option value="Printer">Printer</option>
+                        <option value="Appliances">Appliances</option>
+                    </select>
+                </div>
+                <div class="form-item-group">
+                    <label>Location</label>
+                    <select id="asset-location" required>
+                        <option value="Server Room">Server Room</option>
+                        <option value="Classroom Block A">Classroom Block A</option>
+                        <option value="IT Lab">IT Lab</option>
+                    </select>
+                </div>
+                <div class="form-item-group">
+                    <label>Condition Status</label>
+                    <select id="asset-condition" required>
+                        <option value="Excellent">Excellent</option>
+                        <option value="Good">Good</option>
+                        <option value="Poor">Poor</option>
+                    </select>
+                </div>
+                <div class="form-item-group">
+                    <label>Operational Status</label>
+                    <select id="asset-status" required>
+                        <option value="Operational">Operational</option>
+                        <option value="Under Maintenance">Under Maintenance</option>
+                        <option value="Under Inspection">Under Inspection</option>
+                        <option value="Out of Service">Out of Service</option>
+                    </select>
+                </div>
+                <div class="modal-footer-buttons">
+                    <button type="button" class="btn-modal-cancel" onclick="toggleAssetModal(false)">Cancel</button>
+                    <button type="submit" class="btn-modal-save">Save Asset</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="admin-menu-badge">Admin Menu</div>
+
+    <script src="global-menu-engine.js"></script>
+    <script src="../global-menu.js"></script>
+    <script src="assets-engine.js"></script>
+</body>
+
+</html>

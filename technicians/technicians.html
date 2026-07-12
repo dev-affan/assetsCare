@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AssetCare - Technician Coverage</title>
+    <link rel="stylesheet" href="technicians-style.css">
+    <link rel="stylesheet" href="../admin-menu.css">
+</head>
+
+<body>
+
+    <div class="real-app-layout">
+
+        <aside class="real-sidebar">
+            <div class="brand-block">
+                <div class="brand-logo-icon">AC</div>
+                <div class="brand-meta-info">
+                    <h3>AssetCare</h3>
+                    <span>Scan. Report. Maintain.</span>
+                </div>
+            </div>
+
+            <div class="sidebar-context-card">
+                <strong>SMIT Technology Campus</strong>
+                <p>Every asset deserves a complete digital maintenance history.</p>
+            </div>
+
+            <nav class="sidebar-navigation">
+                <a href="../index.html" class="nav-item"><span class="icon">📊</span> Dashboard</a>
+                <a href="../assets/assets.html" class="nav-item"><span class="icon">⚙️</span> Assets</a>
+                <a href="../issues/issues.html" class="nav-item"><span class="icon">🛠️</span> Issues</a>
+                <a href="../schedule/schedule.html" class="nav-item"><span class="icon">📅</span> Scheduled
+                    Maintenance</a>
+                <a href="technicians.html" class="nav-item active"><span class="icon">👥</span> Technicians</a>
+                <a href="../analytics/analytics.html" class="nav-item"><span class="icon">📈</span> Analytics</a>
+                <a href="../notifications/notifications.html" class="nav-item"><span class="icon">🔔</span>
+                    Notifications</a>
+                <a href="../settings/settings.html" class="nav-item"><span class="icon">⚙️</span> Settings</a>
+            </nav>
+
+            <div class="sidebar-footer-profile">
+                <div class="profile-avatar">MA</div>
+                <div class="profile-text">
+                    <h4>Muhammad Affan</h4>
+                    <span>Administrator</span>
+                </div>
+            </div>
+        </aside>
+
+        <main class="real-main-viewport">
+
+            <header class="real-top-header">
+                <div class="header-search-bar-mock">
+                    <span>🔍</span>
+                    <input type="text" placeholder="Search technicians, specialized roles..." id="global-tech-search"
+                        oninput="liveSearchTechnicians()">
+                </div>
+                <div class="header-right-meta">
+                    <div class="notification-bell-mock">🔔</div>
+                    <div class="org-badge-info">
+                        <strong>SMIT Technology Campus</strong>
+                        <span>Administrator view</span>
+                    </div>
+                    <div class="admin-menu-badge">Admin Menu</div>
+                </div>
+            </header>
+
+            <section class="real-scroll-workspace">
+
+                <div class="workspace-intro-row">
+                    <div class="intro-title-meta">
+                        <span class="sub-lbl">ASSETCARE WORKSPACE</span>
+                        <h2>Technician Coverage</h2>
+                        <p>Review technician workload, assigned issues, active asset targets, and performance
+                            statistics.</p>
+                    </div>
+                    <button class="btn-assign-new-tech" id="btn-trigger-assign-modal">Assign New Target</button>
+                </div>
+
+                <div class="tech-header-meta">
+                    <span class="dir-small-title">ACTIVE STAFF DIRECTORY</span>
+                    <h3 id="directory-tech-counter">0 technicians active</h3>
+                </div>
+
+                <div class="technicians-grid-container" id="dynamic-technician-cards-holder">
+                </div>
+
+            </section>
+        </main>
+    </div>
+
+    <div id="assign-tech-modal" class="modal-backdrop" style="display: none;">
+        <div class="modal-window-box">
+            <div class="modal-header-section">
+                <h3>Assign Asset Target to Staff</h3>
+                <button class="modal-close-x-btn" onclick="toggleAssignModal(false)">✕</button>
+            </div>
+            <form id="tech-assignment-form" onsubmit="handleNewTargetSubmission(event)">
+                <div class="form-item-group">
+                    <label>Select Technician</label>
+                    <select id="modal-select-tech" required>
+                    </select>
+                </div>
+                <div class="form-item-group">
+                    <label>Issue ID / Ticket (e.g., ISS-2026-0049)</label>
+                    <input type="text" id="modal-issue-id" placeholder="e.g., ISS-2026-0049" required>
+                </div>
+                <div class="form-item-group">
+                    <label>Issue/Asset Description</label>
+                    <input type="text" id="modal-issue-title"
+                        placeholder="e.g., Water pressure drops rapidly or Generator repair" required>
+                </div>
+                <div class="form-item-sub-grid">
+                    <div class="form-item-group">
+                        <label>Initial Status</label>
+                        <select id="modal-issue-status">
+                            <option value="Assigned">Assigned</option>
+                            <option value="Completed">Completed</option>
+                        </select>
+                    </div>
+                    <div class="form-item-group">
+                        <label>Is Due Today?</label>
+                        <select id="modal-is-due">
+                            <option value="No">No</option>
+                            <option value="Yes">Yes</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer-buttons">
+                    <button type="button" class="btn-modal-cancel" onclick="toggleAssignModal(false)">Cancel</button>
+                    <button type="submit" class="btn-modal-save">Save & Assign</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="technicians-engine.js"></script>
+    <script src="global-menu.js"></script>
+    <div class="admin-menu-badge">Admin Menu</div>
+
+    <script src="../global-menu.js"></script>
+</body>
+
+</html>

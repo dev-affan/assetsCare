@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AssetCare - Scheduled Maintenance</title>
+    <link rel="stylesheet" href="schedule-style.css">
+    <link rel="stylesheet" href="../admin-menu.css">
+</head>
+
+<body>
+
+    <div class="real-app-layout">
+
+        <aside class="real-sidebar">
+            <div class="brand-block">
+                <div class="brand-logo-icon">AC</div>
+                <div class="brand-meta-info">
+                    <h3>AssetCare</h3>
+                    <span>Scan. Report. Maintain.</span>
+                </div>
+            </div>
+
+            <div class="sidebar-context-card">
+                <strong>SMIT Technology Campus</strong>
+                <p>Every asset deserves a complete digital maintenance history.</p>
+            </div>
+
+            <nav class="sidebar-navigation">
+                <a href="../index.html" class="nav-item"><span class="icon">📊</span> Dashboard</a>
+                <a href="../assets/assets.html" class="nav-item"><span class="icon">⚙️</span> Assets</a>
+                <a href="../issues/issues.html" class="nav-item"><span class="icon">🛠️</span> Issues</a>
+                <a href="schedule.html" class="nav-item active"><span class="icon">📅</span> Scheduled Maintenance</a>
+                <a href="../technicians/technicians.html" class="nav-item"><span class="icon">👥</span> Technicians</a>
+                <a href="../analytics/analytics.html" class="nav-item"><span class="icon">📈</span> Analytics</a>
+                <a href="../notifications/notifications.html" class="nav-item"><span class="icon">🔔</span>
+                    Notifications</a>
+                <a href="../settings/settings.html" class="nav-item"><span class="icon">⚙️</span> Settings</a>
+            </nav>
+
+            <div class="sidebar-footer-profile">
+                <div class="profile-avatar">MA</div>
+                <div class="profile-text">
+                    <h4>Muhammad Affan</h4>
+                    <span>Administrator</span>
+                </div>
+            </div>
+        </aside>
+
+        <main class="real-main-viewport">
+
+            <header class="real-top-header">
+                <div class="header-search-bar-mock">
+                    <span>🔍</span>
+                    <input type="text" placeholder="Search notifications..." id="global-notify-search"
+                        oninput="liveSearchNotifications()">
+                </div>
+                <div class="header-right-meta">
+                    <div class="notification-bell-mock">🔔 <span class="badge-dot" id="nav-bell-dot"></span></div>
+                    <div class="org-badge-info">
+                        <strong>SMIT Technology Campus</strong>
+                        <span>Administrator view</span>
+                    </div>
+                    <div class="admin-menu-badge">Admin Menu</div>
+                </div>
+            </header>
+
+            <section class="real-scroll-workspace">
+
+                <div class="workspace-intro-row">
+                    <div class="intro-title-meta">
+                        <span class="sub-lbl">ASSETCARE WORKSPACE</span>
+                        <h2>Scheduled Maintenance</h2>
+                        <p>Plan, organize, and monitor upcoming routine tune-ups and technical inspections.</p>
+                    </div>
+                    <button class="btn-schedule-new" id="btn-trigger-schedule-modal">Schedule New Maintenance</button>
+                </div>
+
+                <div class="filter-console-card">
+                    <div class="filter-inputs-grid-row">
+                        <div class="filter-input-wrapper">
+                            <label>Search schedules</label>
+                            <input type="text" id="schedule-search-input" placeholder="Search by asset or technician">
+                        </div>
+                        <div class="filter-input-wrapper">
+                            <label>Priority</label>
+                            <select id="filter-priority-select">
+                                <option value="ALL">All</option>
+                                <option value="High">High</option>
+                                <option value="Medium">Medium</option>
+                                <option value="Low">Low</option>
+                            </select>
+                        </div>
+                        <div class="filter-input-wrapper">
+                            <label>Status</label>
+                            <select id="filter-status-select">
+                                <option value="ALL">All</option>
+                                <option value="Upcoming">Upcoming</option>
+                                <option value="In Progress">In Progress</option>
+                                <option value="Overdue">Overdue</option>
+                            </select>
+                        </div>
+                        <div class="filter-input-wrapper">
+                            <label>Asset Type</label>
+                            <select id="filter-type-select">
+                                <option value="ALL">All</option>
+                                <option value="Generator">Generator</option>
+                                <option value="Projector">Projector</option>
+                                <option value="HVAC Systems">HVAC Systems</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="filter-actions-row">
+                        <button class="btn-apply-filters" onclick="applyLiveScheduleFilters()">Apply filters</button>
+                        <button class="btn-clear-filters" onclick="clearScheduleFiltersEngine()">Clear</button>
+                    </div>
+                </div>
+
+                <div class="schedules-header-meta">
+                    <span class="dir-small-title">ACTIVE SCHEDULES</span>
+                    <h3 id="directory-schedules-counter">0 maintenance tracks</h3>
+                </div>
+
+                <div class="schedules-grid-wrapper" id="dynamic-cards-grid-holder"></div>
+
+                <div id="schedule-empty-state" class="empty-directory-placeholder" style="display: none;">
+                    <p>No maintenance windows found matching your filters.</p>
+                </div>
+
+            </section>
+        </main>
+    </div>
+
+    <div id="schedule-modal" class="modal-backdrop" style="display: none;">
+        <div class="modal-window-box">
+            <div class="modal-header-section">
+                <h3>Schedule New Maintenance Window</h3>
+                <button class="modal-close-x-btn" onclick="toggleScheduleModal(false)">✕</button>
+            </div>
+            <form id="schedule-submission-form" onsubmit="handleScheduleRegistration(event)">
+                <div class="form-item-group">
+                    <label>Asset Name</label>
+                    <input type="text" id="sch-asset-name" placeholder="e.g., Central HVAC Unit" required>
+                </div>
+                <div class="form-item-group">
+                    <label>Asset Code</label>
+                    <input type="text" id="sch-asset-code" placeholder="e.g., AST-2026-005" required>
+                </div>
+                <div class="form-item-group">
+                    <label>Maintenance Type</label>
+                    <input type="text" id="sch-type" placeholder="e.g., Oil Change, Filter Replacement" required>
+                </div>
+                <div class="form-item-group">
+                    <label>Assigned Technician</label>
+                    <input type="text" id="sch-technician" placeholder="e.g., Bilal Raza" required>
+                </div>
+                <div class="form-item-group">
+                    <label>Target Execution Date</label>
+                    <input type="date" id="sch-date" required>
+                </div>
+                <div class="form-item-group">
+                    <label>Priority</label>
+                    <select id="sch-priority" required>
+                        <option value="High">High</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Low">Low</option>
+                    </select>
+                </div>
+                <div class="form-item-group">
+                    <label>Status Context</label>
+                    <select id="sch-status" required>
+                        <option value="Upcoming">Upcoming</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Overdue">Overdue</option>
+                    </select>
+                </div>
+                <div class="modal-footer-buttons">
+                    <button type="button" class="btn-modal-cancel" onclick="toggleScheduleModal(false)">Cancel</button>
+                    <button type="submit" class="btn-modal-save">Save Window</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="schedule-engine.js"></script>
+    <script src="../global-menu.js"></script>
+    <div class="admin-menu-badge">Admin Menu</div>
+
+    <script src="global-menu-engine.js"></script>
+
+</body>
+
+</html>

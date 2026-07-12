@@ -1,0 +1,177 @@
+/* ADMIN MENU DROPDOWN BADGE STYLING FOR NAVBAR */
+.admin-menu-badge {
+    background: #e0f2fe;
+    color: #0369a1;
+    font-weight: 600;
+    font-size: 0.82rem;
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.admin-menu-badge:hover {
+    background: #bae6fd;
+}
+
+/* GLOBAL MODAL BLUR OVERLAY (SCREENSHOT MATCHED) */
+.modal-blur-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(15, 23, 42, 0.3);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+    /* Sabse top par rahega */
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Active Class State Trigger */
+.modal-blur-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.user-menu-card-popup {
+    background: #ffffff;
+    width: 440px;
+    border-radius: 16px;
+    padding: 28px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    position: relative;
+    transform: scale(0.92);
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal-blur-overlay.active .user-menu-card-popup {
+    transform: scale(1);
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: #f1f5f9;
+    border: none;
+    font-size: 1.4rem;
+    color: #64748b;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-close-btn:hover {
+    background: #e2e8f0;
+    color: #0f172a;
+}
+
+.modal-header-section {
+    margin-bottom: 20px;
+}
+
+.modal-brand-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: #0c7489;
+    letter-spacing: 1px;
+}
+
+.modal-header-section h3 {
+    font-size: 1.35rem;
+    color: #032b3d;
+    font-weight: 700;
+    margin-top: 2px;
+}
+
+.user-profile-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.user-avatar-badge {
+    width: 46px;
+    height: 46px;
+    background: #e0f2fe;
+    color: #0369a1;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.user-meta-details h4 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.user-meta-details span {
+    font-size: 0.82rem;
+    color: #64748b;
+}
+
+.modal-info-notice-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 24px;
+}
+
+.modal-info-notice-box p {
+    font-size: 0.88rem;
+    color: #475569;
+    line-height: 1.5;
+}
+
+.modal-actions-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-modal-reset {
+    background: #ffebebc7;
+    border: none;
+    color: #ba1c1c;
+    padding: 10px 18px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn-modal-reset:hover {
+    background: #fecaca;
+}
+
+.btn-modal-logout {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    color: #0f172a;
+    padding: 10px 22px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn-modal-logout:hover {
+    background: #f8fafc;
+    border-color: #94a3b8;
+}

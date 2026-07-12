@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AssetCare - Authenticate</title>
+    <link rel="stylesheet" href="login-style.css">
+</head>
+
+<body>
+
+    <div class="login-wrapper">
+        <div class="left-brand-panel">
+            <div class="brand-identity">
+                <div class="logo-badge">AC</div>
+                <span class="brand-name">ASSETCARE</span>
+            </div>
+            <h1 class="main-tagline">Scan.<br>Report.<br>Maintain.</h1>
+            <p class="brand-desc">
+                Every physical asset deserves a complete digital maintenance history. AssetCare helps teams move from QR
+                access to issue reporting.
+            </p>
+            <div class="feature-cards-stack">
+                <div class="feat-card">
+                    <h4>QR asset access</h4>
+                    <p>Public, mobile-first pages for reporting issues in seconds.</p>
+                </div>
+                <div class="feat-card">
+                    <h4>Operational visibility</h4>
+                    <p>Track issue priority, technician load, and maintenance schedules.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-form-panel">
+            <div class="login-box-container">
+                <span class="workspace-label">SMIT TECHNOLOGY CAMPUS</span>
+
+                <div id="login-section">
+                    <h2 class="form-title">Sign in to your workspace</h2>
+                    <p class="form-subtitle">Don't have an account? <a href="#"
+                            onclick="toggleAuthForm('signup')">Create an account</a></p>
+
+                    <form id="login-form" onsubmit="executeLocalStorageLogin(event)">
+                        <div class="input-group">
+                            <label>Email</label>
+                            <input type="email" id="login-email" placeholder="name@assetcare.demo" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Password</label>
+                            <input type="password" id="login-password" placeholder="Enter your password" required>
+                        </div>
+                        <button type="submit" class="btn-login-submit">Login to AssetCare</button>
+                    </form>
+
+                    <div class="demo-accounts-wrapper">
+                        <div class="demo-profile-card admin-card"
+                            onclick="autoFillCredentials('admin@assetcare.demo', 'admin123')">
+                            <span class="role-badge admin-lbl">Administrator</span>
+                            <div class="credential-info"><strong>admin@assetcare.demo</strong></div>
+                            <a href="#" onclick="loginAsAdmin()">Use admin account</a>
+
+                        </div>
+                        <div class="demo-profile-card tech-card"
+                            onclick="autoFillCredentials('technician@assetcare.demo', 'tech123')">
+                            <span class="role-badge tech-lbl">Technician</span>
+                            <div class="credential-info"><strong>technician@assetcare.demo</strong></div>
+                            <a href="#" onclick="loginAsTechnician()">Use technician account</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="signup-section" style="display: none;">
+                    <h2 class="form-title">Create your account</h2>
+                    <p class="form-subtitle">Already have an account? <a href="#" onclick="toggleAuthForm('login')">Sign
+                            in instead</a></p>
+
+                    <form id="signup-form" onsubmit="executeLocalStorageSignup(event)">
+                        <div class="name-row" style="display: flex; gap: 15px;">
+                            <div class="input-group" style="flex: 1;">
+                                <label>First Name</label>
+                                <input type="text" id="signup-firstname" placeholder="Muhammad" required>
+                            </div>
+                            <div class="input-group" style="flex: 1;">
+                                <label>Last Name</label>
+                                <input type="text" id="signup-lastname" placeholder="Affan" required>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Email Address</label>
+                            <input type="email" id="signup-email" placeholder="yourname@domain.com" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Password</label>
+                            <input type="password" id="signup-password" placeholder="Create a strong password" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Workspace Role</label>
+                            <select id="signup-role" required>
+                                <option value="Administrator">Administrator (Manage Assets & Issues)</option>
+                                <option value="Technician">Technician (Fix & Inspect Assets)</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn-login-submit" style="background-color: #0284c7;">Register
+                            Account</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="auth-engine.js"></script>
+</body>
+
+</html>

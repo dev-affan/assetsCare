@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AssetCare - System Settings</title>
+    <link rel="stylesheet" href="settings-style.css">
+    <link rel="stylesheet" href="../admin-menu.css">
+</head>
+
+<body>
+
+    <div class="real-app-layout">
+
+        <aside class="real-sidebar">
+            <div class="brand-block">
+                <div class="brand-logo-icon">AC</div>
+                <div class="brand-meta-info">
+                    <h3>AssetCare</h3>
+                    <span>Scan. Report. Maintain.</span>
+                </div>
+            </div>
+
+            <div class="sidebar-context-card">
+                <strong>SMIT Technology Campus</strong>
+                <p>Every asset deserves a complete digital maintenance history.</p>
+            </div>
+
+            <nav class="sidebar-navigation">
+                <a href="../index.html" class="nav-item"><span class="icon">📊</span> Dashboard</a>
+                <a href="../assets/assets.html" class="nav-item"><span class="icon">⚙️</span> Assets</a>
+                <a href="../issues/issues.html" class="nav-item"><span class="icon">🛠️</span> Issues</a>
+                <a href="../schedule/schedule.html" class="nav-item"><span class="icon">📅</span> Scheduled Maintenance</a>
+                <a href="../technicians/technicians.html" class="nav-item"><span class="icon">👥</span> Technicians</a>
+                <a href="../analytics/analytics.html" class="nav-item"><span class="icon">📈</span> Analytics</a>
+                <a href="../notifications/notifications.html" class="nav-item"><span class="icon">🔔</span> Notifications</a>
+                <a href="settings.html" class="nav-item active"><span class="icon">⚙️</span> Settings</a>
+            </nav>
+
+            <div class="sidebar-footer-profile">
+                <div class="profile-avatar" id="sidebar-user-avatar">MA</div>
+                <div class="profile-text">
+                    <h4 id="sidebar-user-name">Muhammad Affan</h4>
+                    <span>Administrator</span>
+                </div>
+            </div>
+        </aside>
+
+        <main class="real-main-viewport">
+
+            <header class="real-top-header">
+                <div class="header-search-bar-mock">
+                    <span>🔍</span>
+                    <input type="text" placeholder="Search preference blocks..." disabled>
+                </div>
+                <div class="header-right-meta">
+                    <div class="notification-bell-mock">🔔</div>
+                    <div class="org-badge-info">
+                        <strong>SMIT Technology Campus</strong>
+                        <span>Administrator view</span>
+                    </div>
+                </div>
+            </header>
+
+            <section class="real-scroll-workspace">
+
+                <div class="workspace-intro-row">
+                    <div class="intro-title-meta">
+                        <span class="sub-lbl">GLOBAL APP CONTROLS</span>
+                        <h2>System Settings</h2>
+                        <p>Manage administrator credentials, customize master user profiles, update active compliance,
+                            and secure account states.</p>
+                    </div>
+                </div>
+
+                <div class="settings-workspace-wrapper">
+
+                    <div class="settings-panel-card">
+                        <div class="settings-card-header">
+                            <h3>Edit Profile Configuration</h3>
+                            <p>Update your personal information displayed on sidebar profiles and asset logs.</p>
+                        </div>
+                        <form id="profile-edit-form" onsubmit="saveProfileChanges(event)">
+                            <div class="form-item-group">
+                                <label>Full Name Display</label>
+                                <input type="text" id="setting-full-name" required placeholder="e.g., Muhammad Affan">
+                            </div>
+                            <div class="form-item-group">
+                                <label>Email Address Anchor</label>
+                                <input type="email" id="setting-email" required placeholder="admin@assetcare.demo">
+                            </div>
+                            <div class="form-item-group">
+                                <label>Profile Role Label</label>
+                                <input type="text" id="setting-role" disabled value="System Administrator">
+                            </div>
+                            <button type="submit" class="btn-settings-save">Save Profile Details</button>
+                        </form>
+                    </div>
+
+                    <div class="settings-panel-card">
+                        <div class="settings-card-header">
+                            <h3>Security & Authentication</h3>
+                            <p>Update account access passcodes regularly to maintain campus infrastructure security
+                                logs.</p>
+                        </div>
+                        <form id="security-change-form" onsubmit="handlePasswordUpdate(event)">
+                            <div class="form-item-group">
+                                <label>Current System Password</label>
+                                <input type="password" id="setting-curr-password" required placeholder="••••••••">
+                            </div>
+                            <div class="form-item-group">
+                                <label>New Master Password</label>
+                                <input type="password" id="setting-new-password" required
+                                    placeholder="Minimum 6 characters">
+                            </div>
+                            <div class="form-item-group">
+                                <label>Confirm New Password</label>
+                                <input type="password" id="setting-confirm-password" required
+                                    placeholder="Confirm match">
+                            </div>
+                            <button type="submit" class="btn-settings-save variant-secure">Change Master
+                                Passcode</button>
+                        </form>
+                    </div>
+
+                </div>
+
+                <div class="danger-zone-container-box">
+                    <div class="danger-meta-side">
+                        <h4>Danger Zone Actions</h4>
+                        <p>Perform complete account authentication termination or wipe active cache components safely
+                            from browser storage.</p>
+                    </div>
+                    <div class="danger-buttons-side">
+                        <button class="btn-danger-action btn-wipe" onclick="wipeLocalCacheData()">Wipe Cache
+                            Data</button>
+                        <button class="btn-danger-action btn-logout" onclick="executeSystemLogout()">Logout
+                            Account</button>
+                    </div>
+                </div>
+
+            </section>
+        </main>
+    </div>
+<div class="admin-menu-badge">Admin Menu</div>
+
+    <script src="global-menu-engine.js"></script>
+    <script src="settings-engine.js"></script>
+    <script src="../global-menu.js"></script>
+</body>
+
+</html>

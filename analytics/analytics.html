@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AssetCare - Analytics & Reports</title>
+    <link rel="stylesheet" href="analytics-style.css">
+    <link rel="stylesheet" href="../admin-menu.css">
+
+</head>
+
+<body>
+
+    <div class="real-app-layout">
+
+        <aside class="real-sidebar">
+            <div class="brand-block">
+                <div class="brand-logo-icon">AC</div>
+                <div class="brand-meta-info">
+                    <h3>AssetCare</h3>
+                    <span>Scan. Report. Maintain.</span>
+                </div>
+            </div>
+
+            <div class="sidebar-context-card">
+                <strong>SMIT Technology Campus</strong>
+                <p>Every asset deserves a complete digital maintenance history.</p>
+            </div>
+
+            <nav class="sidebar-navigation">
+                <a href="../index.html" class="nav-item"><span class="icon">📊</span> Dashboard</a>
+                <a href="../assets/assets.html" class="nav-item"><span class="icon">⚙️</span> Assets</a>
+                <a href="../issues/issues.html" class="nav-item"><span class="icon">🛠️</span> Issues</a>
+                <a href="../schedule/schedule.html" class="nav-item"><span class="icon">📅</span> Scheduled
+                    Maintenance</a>
+                <a href="../technicians/technicians.html" class="nav-item"><span class="icon">👥</span> Technicians</a>
+                <a href="analytics.html" class="nav-item active"><span class="icon">📈</span> Analytics</a>
+                <a href="../notifications/notifications.html" class="nav-item"><span class="icon">🔔</span>
+                    Notifications</a>
+                <a href="../settings/settings.html" class="nav-item"><span class="icon">⚙️</span> Settings</a>
+            </nav>
+
+            <div class="sidebar-footer-profile">
+                <div class="profile-avatar">MA</div>
+                <div class="profile-text">
+                    <h4>Muhammad Affan</h4>
+                    <span>Administrator</span>
+                </div>
+            </div>
+        </aside>
+
+        <main class="real-main-viewport">
+
+            <header class="real-top-header">
+                <div class="header-search-bar-mock">
+                    <span>🔍</span>
+                    <input type="text" placeholder="Search notifications..." id="global-notify-search"
+                        oninput="liveSearchNotifications()">
+                </div>
+                <div class="header-right-meta">
+                    <div class="notification-bell-mock">🔔 <span class="badge-dot" id="nav-bell-dot"></span></div>
+                    <div class="org-badge-info">
+                        <strong>SMIT Technology Campus</strong>
+                        <span>Administrator view</span>
+                    </div>
+                    <div class="admin-menu-badge">Admin Menu</div>
+                </div>
+            </header>
+
+            <section class="real-scroll-workspace">
+
+                <div class="workspace-intro-row">
+                    <div class="intro-title-meta">
+                        <span class="sub-lbl">OPERATIONAL REPORTS SUMMARY</span>
+                        <h2>Analytics & Reports</h2>
+                        <p>Real-time data visualization on campus assets condition, technician coverage, and compliance
+                            ratings.</p>
+                    </div>
+                    <div class="action-dropdown-group">
+                        <button class="btn-export-report" onclick="triggerMockExport()">Export Report ▾</button>
+                    </div>
+                </div>
+
+                <div class="analytics-metrics-counters-row">
+                    <div class="metric-summary-box">
+                        <div class="box-icon-lbl text-blue">📁 Total Assets</div>
+                        <h2 id="stat-total-assets">0</h2>
+                        <span class="box-trend-tag positive">↑ 4 new this month</span>
+                    </div>
+                    <div class="metric-summary-box">
+                        <div class="box-icon-lbl text-red">⚠️ Active Issues</div>
+                        <h2 id="stat-active-issues">0</h2>
+                        <span class="box-trend-tag negative">Critical alerts pending</span>
+                    </div>
+                    <div class="metric-summary-box">
+                        <div class="box-icon-lbl text-green">✅ Done Tasks</div>
+                        <h2 id="stat-completed-tasks">0</h2>
+                        <span class="box-trend-tag positive">✓ Efficiency standard</span>
+                    </div>
+                    <div class="metric-summary-box">
+                        <div class="box-icon-lbl text-cyan">⚡ System Health</div>
+                        <h2 id="stat-health-rate">0%</h2>
+                        <span class="box-trend-tag positive">Optimal operational status</span>
+                    </div>
+                </div>
+
+                <div class="analytics-dual-blocks-grid">
+
+                    <div class="analytics-panel-card">
+                        <div class="panel-card-header">
+                            <h3>Assets Condition</h3>
+                            <span>Current physical status distribution</span>
+                        </div>
+                        <div class="panel-card-body">
+
+                            <div class="condition-progress-wrapper">
+                                <div class="progress-labels-row">
+                                    <span class="cond-lbl"><span class="dot dot-good"></span> Good / Operational</span>
+                                    <strong id="bar-val-good-text">0 Assets (0%)</strong>
+                                </div>
+                                <div class="progress-bar-track">
+                                    <div class="progress-bar-fill fill-good" id="bar-fill-good" style="width: 0%;">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="condition-progress-wrapper">
+                                <div class="progress-labels-row">
+                                    <span class="cond-lbl"><span class="dot dot-repair"></span> Under Maintenance /
+                                        Repair</span>
+                                    <strong id="bar-val-repair-text">0 Assets (0%)</strong>
+                                </div>
+                                <div class="progress-bar-track">
+                                    <div class="progress-bar-fill fill-repair" id="bar-fill-repair" style="width: 0%;">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="condition-progress-wrapper">
+                                <div class="progress-labels-row">
+                                    <span class="cond-lbl"><span class="dot dot-critical"></span> Damaged /
+                                        Unserviceable</span>
+                                    <strong id="bar-val-critical-text">0 Assets (0%)</strong>
+                                </div>
+                                <div class="progress-bar-track">
+                                    <div class="progress-bar-fill fill-critical" id="bar-fill-critical"
+                                        style="width: 0%;"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="analytics-panel-card">
+                        <div class="panel-card-header">
+                            <h3>Recent Maintenance Tracks</h3>
+                            <span>Live execution streams from workspace tracks</span>
+                        </div>
+                        <div class="panel-card-body">
+                            <div class="trends-logs-stack" id="analytics-logs-holder">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+        </main>
+    </div>
+    <div class="admin-menu-badge">Admin Menu</div>
+
+    <script src="global-menu-engine.js"></script>
+    <script src="../global-menu.js"></script>
+    <script src="analytics-engine.js"></script>
+</body>
+
+</html>
