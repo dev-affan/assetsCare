@@ -28,6 +28,10 @@ body {
     flex-direction: column;
     padding: 24px 16px;
     flex-shrink: 0;
+
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .brand-block {
@@ -199,6 +203,9 @@ body {
     font-size: 0.82rem;
     padding: 6px 14px;
     border-radius: 6px;
+    
+    cursor: pointer !important;
+
 }
 
 .real-scroll-workspace {

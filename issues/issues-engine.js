@@ -159,7 +159,3 @@ function clearIssueFiltersEngine() {
     calculateAndRenderIssuesPage();
 }
 
-function triggerSessionLogout() {
-    localStorage.removeItem('activeSessionUser');
-    window.location.href = 'Login/login.html';
-}

@@ -1,3 +1,16 @@
+// Global session logout function attached to window for inline onclick handlers
+window.triggerSessionLogout = function() {
+    if (confirm("Are you sure you want to securely log out of AssetCare workspace?")) {
+        localStorage.removeItem('activeSessionUser');
+        const currentPath = window.location.pathname;
+        if (currentPath.includes('/assets/') || currentPath.includes('/issues/') || currentPath.includes('/schedule/') || currentPath.includes('/analytics/') || currentPath.includes('/notifications/') || currentPath.includes('/settings/') || currentPath.includes('/technicians/')) {
+            window.location.href = '../Login/login.html';
+        } else {
+            window.location.href = 'Login/login.html';
+        }
+    }
+};
+
 document.addEventListener("DOMContentLoaded", () => {
     // 1. AUTOMATIC INJECT COMPLETE CSS WITH CURSOR FIXES
     const styleId = "global-admin-menu-styles";
@@ -117,23 +130,32 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
         document.head.appendChild(styleTag);
     }
-
     // 2. INITIALIZE LOGGED IN USER CREDENTIALS DYNAMICALLY
-    // Settings block se sync check karega ya login variables se
-    const activeRole = localStorage.getItem('currentUserRole') || 'admin';
-    const activeName = localStorage.getItem('currentUserName') || 'Muhammad Affan';
-
-    // Agar profile set hai toh wahan ka email uthayega, warna default set karega rule matching karke
-    let activeEmail = "admin@assetcare.demo";
-    const storedProfile = localStorage.getItem('appAdminSessionProfile');
-    if (storedProfile) {
-        const parsed = JSON.parse(storedProfile);
-        activeEmail = parsed.email;
-    } else {
-        activeEmail = activeRole === 'admin' ? 'affan@assetcare.demo' : 'ahmed.raza@assetcare.demo';
+    const sessionToken = JSON.parse(localStorage.getItem('activeSessionUser'));
+    const currentPath = window.location.pathname;
+    
+    if (!sessionToken || !sessionToken.isLoggedIn) {
+        if (!currentPath.includes('/Login/login.html')) {
+            const depth = currentPath.split('/').length - currentPath.indexOf('/assetsCare/') - 3;
+            // Assuming index.html is at depth 0. 
+            // Better yet, just check if we are in a subfolder
+            if (currentPath.includes('/assets/') || currentPath.includes('/issues/') || currentPath.includes('/schedule/') || currentPath.includes('/analytics/') || currentPath.includes('/notifications/') || currentPath.includes('/settings/') || currentPath.includes('/technicians/')) {
+                window.location.href = '../Login/login.html';
+            } else {
+                window.location.href = 'Login/login.html';
+            }
+        }
+        return; // stop execution
     }
 
-    const initials = activeName.split(' ').map(n => n[0]).join('').toUpperCase();
+    const activeRole = sessionToken.userRole || 'Administrator';
+    const activeName = `${sessionToken.firstName} ${sessionToken.lastName}` || 'Demo Admin';
+    const activeEmail = sessionToken.userEmail || 'admin@assetcare.demo';
+
+    let initials = 'DA';
+    if (sessionToken.firstName && sessionToken.lastName) {
+        initials = (sessionToken.firstName[0] + sessionToken.lastName[0]).toUpperCase();
+    }
 
     // 3. DYNAMICALLY INJECT POPUP STRUCTURE IN BODY
     const modalId = "globalUserMenuModal";
@@ -172,24 +194,36 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const modalElement = document.getElementById(modalId);
 
-    // 4. CLICK EVENT ROUTER
+    // 4. CLICK EVENT ROUTER - BULLETPROOF DIRECT BINDING
+    function openUserMenu() {
+        // Live updates content inside popup instantly before sliding up
+        const liveSession = JSON.parse(localStorage.getItem('activeSessionUser'));
+        const liveRole = liveSession ? liveSession.userRole : 'Administrator';
+        const liveName = liveSession ? `${liveSession.firstName} ${liveSession.lastName}` : 'Demo Admin';
+        const liveEmail = liveSession ? liveSession.userEmail : 'admin@assetcare.demo';
+
+        document.getElementById('pop-user-name').innerText = liveName;
+        document.getElementById('pop-user-email').innerText = `${liveEmail} • ${liveRole}`;
+
+        modalElement.classList.add('active');
+    }
+
+    const triggerBadges = document.querySelectorAll('.admin-menu-badge, .context-menu-badge, #role-context-menu');
+    triggerBadges.forEach(badge => {
+        badge.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            openUserMenu();
+        });
+    });
+
+    // Fallback document listener just in case there are dynamic badges
     document.body.addEventListener('click', (e) => {
-        // Find closest button target class or element to handle perfect tracking click behavior
-        if (e.target.classList.contains('admin-menu-badge') || e.target.innerText === 'Admin Menu') {
-            // Live updates content inside popup instantly before sliding up
-            const liveRole = localStorage.getItem('currentUserRole') || 'admin';
-            const liveName = localStorage.getItem('currentUserName') || 'Muhammad Affan';
-            let liveEmail = liveRole === 'admin' ? 'affan@assetcare.demo' : 'ahmed.raza@assetcare.demo';
-
-            const liveProfile = localStorage.getItem('appAdminSessionProfile');
-            if (liveProfile) {
-                liveEmail = JSON.parse(liveProfile).email;
-            }
-
-            document.getElementById('pop-user-name').innerText = liveName;
-            document.getElementById('pop-user-email').innerText = `${liveEmail} • ${liveRole}`;
-
-            modalElement.classList.add('active');
+        const targetMenu = e.target.closest('.admin-menu-badge, .context-menu-badge, #role-context-menu');
+        if (targetMenu) {
+            e.preventDefault();
+            e.stopPropagation();
+            openUserMenu();
         }
     });
 

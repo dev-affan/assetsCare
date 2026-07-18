@@ -1,28 +1,19 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Master Config parameters inside LocalStorage mapping
-    if (!localStorage.getItem('appAdminSessionProfile')) {
-        const defaultSession = {
-            fullName: "Muhammad Affan",
-            email: "affan@assetcare.demo",
-            passcode: "admin123",
-            avatarInitials: "MA"
-        };
-        localStorage.setItem('appAdminSessionProfile', JSON.stringify(defaultSession));
-    }
-
     syncProfileInputsFromStorage();
 });
 
 function syncProfileInputsFromStorage() {
-    const sessionData = JSON.parse(localStorage.getItem('appAdminSessionProfile'));
+    const sessionData = JSON.parse(localStorage.getItem('activeSessionUser'));
+    if (!sessionData) return;
 
     // Fill dynamic form input channels
-    document.getElementById('setting-full-name').value = sessionData.fullName;
-    document.getElementById('setting-email').value = sessionData.email;
+    document.getElementById('setting-full-name').value = `${sessionData.firstName} ${sessionData.lastName}`;
+    document.getElementById('setting-email').value = sessionData.userEmail;
 
     // Synchronize current active layout elements globally
-    document.getElementById('sidebar-user-name').innerText = sessionData.fullName;
-    document.getElementById('sidebar-user-avatar').innerText = sessionData.avatarInitials;
+    document.getElementById('sidebar-user-name').innerText = `${sessionData.firstName} ${sessionData.lastName}`;
+    const computedInitials = (sessionData.firstName[0] + sessionData.lastName[0]).toUpperCase();
+    document.getElementById('sidebar-user-avatar').innerText = computedInitials;
 }
 
 // PROFILE RE-CONFIGURATION DISPATCHER
@@ -32,22 +23,31 @@ function saveProfileChanges(event) {
     const newName = document.getElementById('setting-full-name').value.trim();
     const newEmail = document.getElementById('setting-email').value.trim();
 
-    let sessionData = JSON.parse(localStorage.getItem('appAdminSessionProfile'));
+    let sessionData = JSON.parse(localStorage.getItem('activeSessionUser'));
+    let db = JSON.parse(localStorage.getItem('usersDatabase')) || {};
 
-    // Create new dynamic avatar initials mapping from incoming text tokens
+    // Determine first and last name
     const tokens = newName.split(" ");
-    let computedInitials = "MA";
-    if (tokens.length >= 2) {
-        computedInitials = (tokens[0][0] + tokens[1][0]).toUpperCase();
-    } else if (tokens.length === 1 && tokens[0].length > 1) {
-        computedInitials = (tokens[0][0] + tokens[0][1]).toUpperCase();
+    const firstName = tokens[0] || "Demo";
+    const lastName = tokens.slice(1).join(" ") || "Admin";
+
+    // Update session
+    const oldEmail = sessionData.userEmail;
+    sessionData.firstName = firstName;
+    sessionData.lastName = lastName;
+    sessionData.userEmail = newEmail;
+    localStorage.setItem('activeSessionUser', JSON.stringify(sessionData));
+
+    // Update database
+    if (db[oldEmail]) {
+        db[newEmail] = db[oldEmail];
+        db[newEmail].firstName = firstName;
+        db[newEmail].lastName = lastName;
+        if (oldEmail !== newEmail) {
+            delete db[oldEmail];
+        }
+        localStorage.setItem('usersDatabase', JSON.stringify(db));
     }
-
-    sessionData.fullName = newName;
-    sessionData.email = newEmail;
-    sessionData.avatarInitials = computedInitials;
-
-    localStorage.setItem('appAdminSessionProfile', JSON.stringify(sessionData));
 
     // Live UI sync immediately
     syncProfileInputsFromStorage();
@@ -62,10 +62,17 @@ function handlePasswordUpdate(event) {
     const newInput = document.getElementById('setting-new-password').value;
     const confirmInput = document.getElementById('setting-confirm-password').value;
 
-    let sessionData = JSON.parse(localStorage.getItem('appAdminSessionProfile'));
+    let sessionData = JSON.parse(localStorage.getItem('activeSessionUser'));
+    let db = JSON.parse(localStorage.getItem('usersDatabase')) || {};
+    let userProfile = db[sessionData.userEmail];
+
+    if (!userProfile) {
+        alert("Error: User profile not found in database.");
+        return;
+    }
 
     // 1. Check current confirmation validation match
-    if (currentInput !== sessionData.passcode) {
+    if (currentInput !== userProfile.password) {
         alert("Error: Incorrect password entered!");
         return;
     }
@@ -83,8 +90,8 @@ function handlePasswordUpdate(event) {
     }
 
     // Commit changes safely to storage vault
-    sessionData.passcode = newInput;
-    localStorage.setItem('appAdminSessionProfile', JSON.stringify(sessionData));
+    userProfile.password = newInput;
+    localStorage.setItem('usersDatabase', JSON.stringify(db));
 
     document.getElementById('security-change-form').reset();
     alert("Security passcode changed successfully!");
@@ -96,15 +103,5 @@ function wipeLocalCacheData() {
         localStorage.clear();
         alert("Cache memory swept successfully! Reloading environment setup.");
         window.location.reload();
-    }
-}
-
-// SYSTEM DISCONNECT LOGOUT ACTIONS ROUTE
-function executeSystemLogout() {
-    if (confirm("Confirm account session shutdown?")) {
-        alert("Safe tracking system logout processed successfully.");
-
-        // Settings folder se bahar nikal kar Login folder ke andar login.html par bhejna
-        window.location.href = '../Login/login.html';
     }
 }

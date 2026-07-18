@@ -1,55 +1,3 @@
-// Pre-configured Credentials data model according to the screen specs
-const registeredDemoUsers = {
-    "admin@assetcare.demo": { password: "admin123", role: "Administrator", dashboard: "index.html" },
-    "technician@assetcare.demo": { password: "tech123", role: "Technician", dashboard: "index.html" }
-};
-
-// Auto fill function when evaluator clicks on quick-login cards
-function autoFillCredentials(email, password) {
-    document.getElementById('email').value = email;
-    document.getElementById('password').value = password;
-}
-
-// Authentication Execution
-function executeLocalStorageLogin(event) {
-    event.preventDefault();
-
-    const emailInput = document.getElementById('email').value.trim().toLowerCase();
-    const passwordInput = document.getElementById('password').value;
-
-    // Check match profile
-    const userProfile = registeredDemoUsers[emailInput];
-
-    if (userProfile && userProfile.password === passwordInput) {
-        // Create runtime state payload inside localStorage
-        const sessionToken = {
-            isLoggedIn: true,
-            userEmail: emailInput,
-            userRole: userProfile.role,
-            loginTimestamp: new Date().toLocaleString()
-        };
-
-        localStorage.setItem('activeSessionUser', JSON.stringify(sessionToken));
-
-        // Redirect user instantly to main index layout
-        window.location.href = userProfile.dashboard;
-    } else {
-        alert("❌ Invalid email parameters or password! Please check credentials card suggestions.");
-    }
-}
-
-// Security Check Feature snippet for main index dashboard file
-// Copy this part directly inside your main script to prevent direct unauthenticated loading
-function verifyRouteSessionSecurity() {
-    const activeSession = JSON.parse(localStorage.getItem('activeSessionUser'));
-    if (!activeSession || !activeSession.isLoggedIn) {
-        window.location.href = 'login.html';
-    } else {
-        console.log(`Access Verified for profile scope: ${activeSession.userRole}`);
-        // Dynamic UI adjustment based on role configuration can happen here
-    }
-}
-
 // 1. Static/Hardcoded Defaults Array with Name components
 const defaultUsers = {
     "admin@assetcare.demo": { firstName: "Demo", lastName: "Admin", password: "admin123", role: "Administrator" },
@@ -139,16 +87,28 @@ function executeLocalStorageLogin(event) {
 
 // Jab user "Use admin account" par click kare
 function loginAsAdmin() {
-    localStorage.setItem('currentUserRole', 'admin');
-    localStorage.setItem('currentUserName', 'Muhammad Affan');
-    localStorage.setItem('currentUserEmail', 'admin@assetcare.demo');
+    const sessionToken = {
+        isLoggedIn: true,
+        firstName: "Demo",
+        lastName: "Admin",
+        userEmail: "admin@assetcare.demo",
+        userRole: "Administrator",
+        loginTimestamp: new Date().toLocaleString()
+    };
+    localStorage.setItem('activeSessionUser', JSON.stringify(sessionToken));
     window.location.href = '../index.html'; // Main Dashboard par bhejein
 }
 
 // Jab user "Use technician account" par click kare
 function loginAsTechnician() {
-    localStorage.setItem('currentUserRole', 'technician');
-    localStorage.setItem('currentUserName', 'Ahmed Raza');
-    localStorage.setItem('currentUserEmail', 'technician@assetcare.demo');
+    const sessionToken = {
+        isLoggedIn: true,
+        firstName: "Demo",
+        lastName: "Tech",
+        userEmail: "technician@assetcare.demo",
+        userRole: "Technician",
+        loginTimestamp: new Date().toLocaleString()
+    };
+    localStorage.setItem('activeSessionUser', JSON.stringify(sessionToken));
     window.location.href = '../index.html'; // Same index.html par bhejein, baaki kaam wahan handle hoga
 }

@@ -157,7 +157,3 @@ function clearAllFiltersEngine() {
     calculateAndRenderAssetsPage();
 }
 
-function triggerSessionLogout() {
-    localStorage.removeItem('activeSessionUser');
-    window.location.href = 'Login/login.html';
-}
